@@ -56,24 +56,31 @@ Object.defineProperty(outputBuffer, "push", {
     }
 });
 
-// Hook STDIN
-var rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-    terminal: false
-});
+try {
+    // Hook STDIN
+    var rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+        terminal: false
+    });
 
-// Line Out
-rl.on('line', function(line) {
-    outputBuffer.push(line);
-});
+    // Line Out
+    rl.on('line', function(line) {
+        outputBuffer.push(line);
+    });
 
-// Watch For STDIO close and wait 10 seconds before closing
-rl.on('close', function() {
+    // Watch For STDIO close and wait 10 seconds before closing
+    rl.on('close', function() {
+        setTimeout(function() {
+            process.exit(1);
+        }, 10000);
+    });
+} catch (err) {
+    console.log('SlackCat Readline Error:', err);
     setTimeout(function() {
         process.exit(1);
     }, 10000);
-});
+}
 
 bot.on('start', function() {
 

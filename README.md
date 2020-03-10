@@ -36,6 +36,11 @@ SLACKCAT_API_TOKEN = xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 SLACKCAT_CHANNEL = general
 ```
 
+**OPTIONAL**: "Bot Name"
+```bash
+SLACKCAT_USERNAME = Bot
+```
+
 **OPTIONAL**: "Bot Icon"
 ```bash
 SLACKCAT_ICON = :computer:
