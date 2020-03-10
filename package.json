@@ -1,0 +1,33 @@
+{
+  "name": "slackcat",
+  "version": "1.0.0",
+  "description": "Pipe STDIN To Slack From The Command Line",
+  "main": "index.js",
+  "bin": {
+    "slackcat": "./bin/slackcat"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "slack",
+    "cat",
+    "stdin",
+    "cli"
+  ],
+  "author": "Active 9 LLC.",
+  "license": "MIT",
+  "dependencies": {
+    "slackbots": "^1.2.0",
+    "yargs": "^15.3.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/active9/slackcat"
+  },
+  "bugs": {
+    "url": "https://github.com/active9/slackcat/issues"
+  },
+  "homepage": "https://github.com/active9/slackcat"
+}
