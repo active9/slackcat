@@ -25,6 +25,11 @@ npm install -g slackcat
 -i :computer:
 ```
 
+*Bot Silent* ( Defaults to false )
+```bash
+-s true
+```
+
 ## Environment Variables (required)
 **REQUIRED**: *Slack API Token* ( see: https://my.slack.com/services/new/bot )
 ```bash
@@ -44,6 +49,10 @@ SLACKCAT_USERNAME = Bot
 **OPTIONAL**: "Bot Icon"
 ```bash
 SLACKCAT_ICON = :computer:
+```
+**OPTIONAL**: "Bot Silent"
+```bash
+SLACKCAT_SILENT = false
 ```
 
 ## Usage
@@ -72,6 +81,7 @@ echo "Who Wants Cake?" | slackcat -f party -i :cake: -n Chef
 Facts:
 - This module is heavily inspired by and loosely based off of the python module slackcat. 
 - A 10 second delay occurs before slackcat will exit after the STDIO is closed. This gives the bot time to send the data to slack before exiting.
+- Silent mode makes SlackCat not emit to STDOUT.
 - Feature requests will not be taken but bug related issues will be addressed.
 - No cats were harmed in the making of this module.
 - Less than 1 cup of coffee and 2 hours of time was used in making this module

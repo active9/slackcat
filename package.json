@@ -18,6 +18,7 @@
   "author": "Active 9 LLC.",
   "license": "MIT",
   "dependencies": {
+    "parseboolean": "^1.0.0",
     "slackbots": "^1.2.0",
     "yargs": "^15.3.0"
   },

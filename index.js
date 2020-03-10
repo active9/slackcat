@@ -1,9 +1,11 @@
 var readline = require('readline');
+var parseBool = require('parseboolean');
 var SlackBot = require('slackbots');
 var argv = require('yargs').argv;
 var channel = 'general';
 var botname = 'Bot';
 var icon = ':computer:';
+var silent = false;
 var outputBuffer = [];
 
 // ARGV Channel (-f)
@@ -23,6 +25,13 @@ if (argv.i && argv.i != '') {
     icon = argv.i;
 } else {
     icon = process.env.SLACKCAT_ICON || icon;
+}
+
+// ARGV Be Silent *Don't console.log input to the output buffer* (-s)
+if (argv.s && argv.s != '') {
+    silent = parseBool(argv.s);
+} else {
+    silent = parseBool(process.env.SLACKCAT_SILENT) || silent;
 }
 
 // Slack Params
@@ -49,6 +58,9 @@ Object.defineProperty(outputBuffer, "push", {
     writable: false, // see above ^
     value: function () {
         for (var i = 0, n = this.length, l = arguments.length; i < l; i++, n++) {
+            if (!silent) {
+                console.log(arguments[i]);
+            }
             bot.postMessageToChannel(channel, arguments[i], params);
             outputBuffer.pop();
         }
