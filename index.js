@@ -51,55 +51,48 @@ var bot = new SlackBot({
     name: botname
 });
 
-// Object Push Prototype
-Object.defineProperty(outputBuffer, "push", {
-    enumerable: false, // hide from for...in
-    configurable: false, // prevent further meddling...
-    writable: false, // see above ^
-    value: function () {
-        for (var i = 0, n = this.length, l = arguments.length; i < l; i++, n++) {
-            if (!silent) {
-                console.log(arguments[i]);
+bot.on('start', function() {
+
+    // Object Push Prototype
+    Object.defineProperty(outputBuffer, "push", {
+        enumerable: false, // hide from for...in
+        configurable: false, // prevent further meddling...
+        writable: false, // see above ^
+        value: function () {
+            for (var i = 0, n = this.length, l = arguments.length; i < l; i++, n++) {
+                if (!silent) {
+                    console.log(arguments[i]);
+                }
+                bot.postMessageToChannel(channel, arguments[i], params);
+                outputBuffer.pop();
             }
-            bot.postMessageToChannel(channel, arguments[i], params);
-            outputBuffer.pop();
+            return n;
         }
-        return n;
-    }
-});
-
-try {
-    // Hook STDIN
-    var rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout,
-        terminal: false
     });
 
-    // Line Out
-    rl.on('line', function(line) {
-        outputBuffer.push(line);
-    });
+    try {
+        // Hook STDIN
+        var rl = readline.createInterface({
+            input: process.stdin,
+            output: process.stdout,
+            terminal: false
+        });
 
-    // Watch For STDIO close and wait 10 seconds before closing
-    rl.on('close', function() {
+        // Line Out
+        rl.on('line', function(line) {
+            outputBuffer.push(line);
+        });
+
+        // Watch For STDIO close and wait 10 seconds before closing
+        rl.on('close', function() {
+            setTimeout(function() {
+                process.exit(1);
+            }, 10000);
+        });
+    } catch (err) {
+        console.log('SlackCat Readline Error:', err);
         setTimeout(function() {
             process.exit(1);
         }, 10000);
-    });
-} catch (err) {
-    console.log('SlackCat Readline Error:', err);
-    setTimeout(function() {
-        process.exit(1);
-    }, 10000);
-}
-
-bot.on('start', function() {
-
-    // Output The First Buffer
-    outputBuffer.forEach(function(element) {
-        console.log('element', channel, element, params);
-        bot.postMessageToChannel(channel, element, params);
-    });
-    outputBuffer.pop();
+    }
 });
