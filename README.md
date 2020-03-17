@@ -50,6 +50,7 @@ SLACKCAT_USERNAME = Bot
 ```bash
 SLACKCAT_ICON = :computer:
 ```
+
 **OPTIONAL**: "Bot Silent"
 ```bash
 SLACKCAT_SILENT = false

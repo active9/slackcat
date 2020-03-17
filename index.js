@@ -10,8 +10,11 @@ var outputBuffer = [];
 
 // ARGV Channel (-f)
 if (argv.f && argv.f != '') {
-    channel = process.env.SLACKCAT_CHANNEL || botname;
+    channel = argv.f
+} else {
+    channel = process.env.SLACKCAT_CHANNEL || channel;
 }
+channel = channel.replace('#','');
 
 // ARGV Bot Name (-n)
 if (argv.n && argv.n != '') {
