@@ -1,6 +1,6 @@
 {
   "name": "slackcat",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Pipe STDIN To Slack From The Command Line",
   "main": "index.js",
   "bin": {
@@ -20,7 +20,7 @@
   "dependencies": {
     "parseboolean": "^1.0.0",
     "slackbots": "^1.2.0",
-    "yargs": "^15.3.0"
+    "yargs": "^16.1.1"
   },
   "devDependencies": {},
   "repository": {

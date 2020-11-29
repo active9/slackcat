@@ -6,6 +6,7 @@ var channel = 'general';
 var botname = 'Bot';
 var icon = ':computer:';
 var silent = false;
+var muted = false;
 var outputBuffer = [];
 
 // ARGV Channel (-f)
@@ -37,6 +38,13 @@ if (argv.s && argv.s != '') {
     silent = parseBool(process.env.SLACKCAT_SILENT) || silent;
 }
 
+// ARGV Be Muted *Don't actually output slack* (-m)
+if (argv.m && argv.m != '') {
+    muted = parseBool(argv.m);
+} else {
+    muted = parseBool(process.env.SLACKCAT_MUTED) || muted;
+}
+
 // Slack Params
 var params = {
     icon_emoji: icon
@@ -66,7 +74,9 @@ bot.on('start', function() {
                 if (!silent) {
                     console.log(arguments[i]);
                 }
-                bot.postMessageToChannel(channel, arguments[i], params);
+                if (!muted) {
+                    bot.postMessageToChannel(channel, arguments[i], params);   
+                }
                 outputBuffer.pop();
             }
             return n;
